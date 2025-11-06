@@ -29,7 +29,7 @@ public:
         delete[] arr;
     }
 
-    void insert(int pos, const T& e) override {
+    void insert(int pos,T e) override {
         if (pos < 0 || pos > n) {
             throw std::out_of_range("Posición inválida!");
         }
@@ -41,8 +41,8 @@ public:
         ++n;
     }
 
-    void append(const T& e) override { insert(n, e); }
-    void prepend(const T& e) override { insert(0, e); }
+    void append(T e) override { insert(n, e); }
+    void prepend(T e) override { insert(0, e); }
 
     T remove(int pos) override {
         if (pos < 0 || pos >= n) {
@@ -73,7 +73,7 @@ public:
         return arr[pos];
     }
 
-    int search(const T& e) const override {
+    int search(T e) const override {
         for (int i = 0; i < n; ++i) {
             if (arr[i] == e) return i;
         }

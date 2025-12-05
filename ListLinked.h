@@ -37,6 +37,7 @@ public:
     }
 
     // Inserta e en [0..size()]
+
     void insert(int pos, T e) override {
         if (pos < 0 || pos > n) {
             throw std::out_of_range("Posición inválida!");

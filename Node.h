@@ -3,9 +3,10 @@
 
 template <typename T>
 struct Node {
-    T data;
-    Node<T>* next;
-
+    T data;   // Valor real que guarda el nodo
+    Node<T>* next;   // Puntero al siguiente nodo
+    
+    // Constructor
     Node(const T& d, Node<T>* n = nullptr)
         : data(d), next(n) {}
 };

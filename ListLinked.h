@@ -9,10 +9,10 @@
 template <typename T>
 class ListLinked : public List<T> {
 private:
-    Node<T>* first;
-    int n;
+    Node<T>* first;   // Puntero al primer nodo
+    int n;   // Número de elementos
 
-    // Devuelve puntero al nodo en posición pos (0..n-1)
+    // Devuelve un puntero al nodo en posición pos (0..n-1)
     Node<T>* node_at(int pos) const {
         if (pos < 0 || pos >= n) {
             throw std::out_of_range("Posición inválida!");
@@ -25,20 +25,22 @@ private:
     }
 
 public:
+    // Constructor
     ListLinked() : first(nullptr), n(0) {}
-
+    
+    // Destructor
     ~ListLinked() override {
-        Node<T>* curr = first;
+        Node<T>* curr = first;   // Empieza en el primero
         while (curr != nullptr) {
-            Node<T>* next = curr->next;
-            delete curr;
-            curr = next;
+            Node<T>* next = curr->next;   // Guarda el siguiente
+            delete curr;   // Borra el actual
+            curr = next;   // Avanza
         }
     }
 
     // Inserta e en [0..size()]
 
-    void insert(int pos, T e) override {
+    void insert(int pos, T e) override {   // Aquí cambia punteros
         if (pos < 0 || pos > n) {
             throw std::out_of_range("Posición inválida!");
         }
@@ -48,8 +50,8 @@ public:
             first = new Node<T>(e, first);
         } else {
             // insertar en medio/final
-            Node<T>* prev = node_at(pos - 1);
-            prev->next = new Node<T>(e, prev->next);
+            Node<T>* prev = node_at(pos - 1);   // Búsca el nodo anterior al de la posición de inserción
+            prev->next = new Node<T>(e, prev->next);   // Crea un nuevo nodo 
         }
         ++n;
     }
@@ -75,11 +77,11 @@ public:
             val = del->data;
             delete del;
         } else {
-            Node<T>* prev = node_at(pos - 1);
-            Node<T>* del = prev->next;
-            prev->next = del->next;
-            val = del->data;
-            delete del;
+            Node<T>* prev = node_at(pos - 1);   // Busca el nodo anterior al que quieres borrar
+            Node<T>* del = prev->next;   // El que queremos borrar es el siguiente
+            prev->next = del->next;   // Salta el nodo a borrar
+            val = del->data;   // Guarda el valor antes de borrar
+            delete del;   // Libera memoria del nodo eliminado
         }
         --n;
         return val;
@@ -97,7 +99,7 @@ public:
         return node->data;
     }
 
-    int search(T e) const override {
+    int search(T e) const override {   // Busca el elemento y devuelve el nodo
         Node<T>* curr = first;
         int i = 0;
         while (curr != nullptr) {
@@ -108,11 +110,11 @@ public:
         return -1;
     }
 
-    bool empty() const override {
+    bool empty() const override {   // Si está vacío o no
         return n == 0;
     }
 
-    int size() const override {
+    int size() const override {   // Devuelve el número de elementos
         return n;
     }
 
@@ -133,5 +135,5 @@ std::ostream& operator<<(std::ostream& out, const ListLinked<U>& list) {
     return out;
 }
 
-#endif // LISTLINKED_H
+#endif
 
